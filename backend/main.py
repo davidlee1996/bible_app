@@ -1,6 +1,7 @@
 # backend/main.py
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
 import httpx, os
 from typing import List
 from dotenv import load_dotenv
@@ -17,6 +18,19 @@ BASE_URL = "https://api.scripture.api.bible/v1/bibles"
 
 app = FastAPI(title="Bible Translation Dashboard")
 
+# Allow CORS from frontend
+origins = [
+    os.getenv("ALLOWED_ORIGINS", "http://localhost:3000"),
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # Can use ["*"] to allow all, not recommended for production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 def get_db():
     db = SessionLocal()
     try:
@@ -25,6 +39,10 @@ def get_db():
         db.close()
 
 # Existing endpoints
+@app.get("/")
+def read_root():
+    return {"message": "Backend is running!"}
+    
 @app.get("/verse")
 async def get_verse(ref: str, bible_id: str):
     headers = {"api-key": API_KEY}

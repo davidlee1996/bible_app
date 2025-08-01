@@ -4,3 +4,4 @@ httpx
 sqlalchemy
 alembic
 pydantic
+python-dotenv
