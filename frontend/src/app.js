@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CompareViewer from "./components/CompareViewer";
 import NotesPanel from "./components/NotesPanel";
 
-function app() {
+function App() {
   const [selectedRef, setSelectedRef] = useState("John 3:16");
 
   return (
@@ -14,4 +14,4 @@ function app() {
   );
 }
 
-export default app;
+export default App;
