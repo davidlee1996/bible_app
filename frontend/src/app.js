@@ -1,5 +1,5 @@
 import React from 'react';
-import VersePage from './pages/VersePage';
+import VersePage from './components/VersePage';
 
 function App() {
   return (
