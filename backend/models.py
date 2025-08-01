@@ -1,10 +1,18 @@
 # backend/models.py
-from sqlalchemy import Column, Integer, String
-from database import Base
+from pydantic import BaseModel
+from typing import List
 
-class Note(Base):
-    __tablename__ = "notes"
-    id = Column(Integer, primary_key=True, index=True)
-    reference = Column(String, index=True)  # e.g. John 3:16
-    language = Column(String)               # e.g. en, es, ko
-    text = Column(String)                   # your note
+class Note(BaseModel):
+    id: int
+    verse_reference: str  # e.g. "John 3:16"
+    content: str
+    language: str = "en"
+
+class Verse(BaseModel):
+    book: str
+    chapter: int
+    verse: int
+    text: str
+
+class SearchQuery(BaseModel):
+    keyword: str
