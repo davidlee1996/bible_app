@@ -1,15 +1,11 @@
-import React, { useState } from "react";
-import CompareViewer from "./components/CompareViewer";
-import NotesPanel from "./components/NotesPanel";
+import React from 'react';
+import VersePage from './pages/VersePage';
 
 function App() {
-  const [selectedRef, setSelectedRef] = useState("John 3:16");
-
   return (
-    <div style={{ padding: "1rem" }}>
+    <div className="App">
       <h1>Bible Translation Dashboard</h1>
-      <CompareViewer />
-      <NotesPanel reference={selectedRef} />
+      <VersePage />
     </div>
   );
 }
