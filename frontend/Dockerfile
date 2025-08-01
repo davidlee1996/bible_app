@@ -2,15 +2,15 @@
 FROM node:18-alpine as build
 
 WORKDIR /app
-COPY package*.json ./
+
+# Install dependencies
+COPY frontend/package*.json ./
 RUN npm install
-COPY . .
+
+# Copy and build app
+COPY frontend/ .
 RUN npm run build
 
-# Production stage: serve with nginx
-FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Expose port
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Serve with lightweight HTTP server
+RUN npm install -g serve
+CMD ["serve", "-s", "build", "-l", "3000"]

@@ -1,20 +1,18 @@
 version: "3.8"
 
 services:
-  backend:
-    build: ./backend
-    container_name: bible-backend
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./backend:/app
-    env_file:
-      - ./backend/.env
-
   frontend:
-    build: ./frontend
-    container_name: bible-frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
     ports:
-      - "3000:80"
+      - "3000:3000"
     depends_on:
       - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
